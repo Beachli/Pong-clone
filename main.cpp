@@ -24,7 +24,6 @@ int main() {
       }
   };
 
-  //Ball object construction
   Ball *ball = new Ball(
     GetScreenWidth() / 2.0f,
     GetScreenHeight() / 2.0f,
