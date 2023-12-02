@@ -45,6 +45,8 @@ class Paddle {
 
 int main() {
   const char* winnerText = nullptr;
+  int leftScore = 0;
+  int rightScore = 0;
 
   InitWindow(800, 600, "Pong"); //Sets up a window
   SetWindowState(FLAG_VSYNC_HINT); //Sets up VSYNC to remove ghosting
@@ -91,12 +93,14 @@ int main() {
       if (ball->velocityX > 0) {
         ball->velocityX *= -1.05f;
         ball->velocityY = (ball->y - rightPaddle->y) / (rightPaddle->height / 2) * -ball->velocityX; //Makes the ball bounce more realistically
+        rightScore++;
       }
     }
     if (CheckCollisionCircleRec(Vector2{ball->x, ball->y}, ball->radius, leftPaddle->GetRect())) { //Left paddle collisions
       if (ball->velocityX < 0) {
         ball->velocityX *= -1.05f;
         ball->velocityY = (ball->y - leftPaddle->y) / (leftPaddle->height / 2) * ball->velocityX; //Makes the ball bounce more realistically
+        leftScore++;
       }
     }
 
@@ -133,22 +137,28 @@ int main() {
       rightPaddle->y = GetScreenHeight() / 2;
 
       winnerText = nullptr;
+      leftScore = 0;
+      rightScore = 0;
     }
 
     //Rendering
     BeginDrawing();
       ClearBackground(BLACK); //Set background to black
-      
+
+      DrawRectangle(GetScreenWidth() / 2 - 1, 0, 2, GetScreenHeight(), WHITE);
+
       ball->Draw();//Draw ball
       leftPaddle->Draw();//Draw left paddle
       rightPaddle->Draw();//Draw right paddle
+
+      DrawText(TextFormat("%i", leftScore), GetScreenWidth() / 4, 10, 30, WHITE); //Draw the left side score
+      DrawText(TextFormat("%i", rightScore), GetScreenWidth() - (GetScreenWidth() / 4), 10, 30, WHITE); //Draw the right side score
 
       if (winnerText) { //Once there is a winner, display winnerText
         int textWidth = MeasureText(winnerText, 60);
         DrawText(winnerText, GetScreenWidth() / 2 - textWidth / 2, GetScreenHeight() / 2 -30, 60, YELLOW);
       }
 
-      DrawFPS(10, 10); //Show FPS
     EndDrawing();
   }
   
