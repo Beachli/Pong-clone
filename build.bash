@@ -1,1 +1,1 @@
-g++ main.cpp -lraylib -lGL -lm -lpthread -ldl -lrt -lX11 -o pong.exe
+g++ main.cpp -o pong -O1 -Wall -std=c++17 -Wno-missing-braces -I include/ -L lib/ -lraylib
