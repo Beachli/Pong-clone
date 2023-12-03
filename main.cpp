@@ -1,5 +1,4 @@
 #include <raylib.h>
-#include <string>
 
 class Ball {
     public:
