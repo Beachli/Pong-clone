@@ -106,16 +106,24 @@ int main() {
 
     //User input
     if (IsKeyDown(KEY_W)) {
-      leftPaddle->y -= leftPaddle->velocity * GetFrameTime();
+      if (leftPaddle->y > 1) {
+        leftPaddle->y -= leftPaddle->velocity * GetFrameTime();
+      }
     }
     if (IsKeyDown(KEY_S)) {
-      leftPaddle->y += leftPaddle->velocity * GetFrameTime();  
+      if (leftPaddle->y < GetScreenHeight()) {
+        leftPaddle->y += leftPaddle->velocity * GetFrameTime();  
+      }
     }
     if (IsKeyDown(KEY_UP)) {
-      rightPaddle->y -= rightPaddle->velocity * GetFrameTime();
+      if (rightPaddle->y > 1) {
+        rightPaddle->y -= rightPaddle->velocity * GetFrameTime();
+      }
     }
     if (IsKeyDown(KEY_DOWN)) {
-      rightPaddle->y += rightPaddle->velocity * GetFrameTime();
+      if (rightPaddle->y < GetScreenHeight()) {
+        rightPaddle->y += rightPaddle->velocity * GetFrameTime();
+      }
     }
 
     //Winner state and restarting the game
